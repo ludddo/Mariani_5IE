@@ -19,6 +19,36 @@
         $db = json_decode($famigliejson, true);
         $codice_fiscale = $_GET["n"];
         $personaTrovata = null;
+
+        $campi = [];
+        $campi["id_famiglia"] = "Codice Famiglia";
+        $campi["id_compo"] = "Componente numero";
+        $campi["tipo"] = "Ruolo nella famiglia";
+        $campi["cognome"] = "Cognome";
+        $campi["nome"] = "Nome";
+        $campi["sesso"] = "Sesso";
+        $campi["nas_luogo"] = "Luogo di nascita";
+        $campi["nas_regione"] = "Regione di nascita";
+        $campi["nas_prov"] = "Provincia di nascita";
+        $campi["nas_cap"] = "CAP del luogo di nascita";
+        $campi["nas_belf"] = "Codice catastale del comune";
+        $campi["nas_pre"] = "Prefisso telefonico";
+        $campi["data_nascita"] = "Data di nascita";
+        $campi["cod_fis"] = "Codice fiscale";
+        $campi["res_luogo"] = "Luogo di residenza";
+        $campi["res_regione"] = "Regione di residenza";
+        $campi["res_prov"] = "Provincia di residenza";
+        $campi["res_cap"] = "CAP del paese di residenza";
+        $campi["indirizzo"] = "Indirizzo";
+        $campi["telefono"] = "Numero di telefono";
+        $campi["email"] = "E-mail";
+        $campi["pwd_email"] = "Password";
+        $campi["tit_studio"] = "Titolo di studio";
+        $campi["professione"] = "Professione";
+        $campi["sta_civ"] = "Stato civile";
+        $campi["targa"] = "Targa dell'auto";
+        $campi["part_iva"] = "Partita IVA";
+
         
         foreach ($db as $persona) {
             if ($persona['cod_fis'] === $codice_fiscale) {
@@ -62,7 +92,7 @@
                         </div>
                         <div class="modal-body">
                             <?php foreach ($personaTrovata as $proprieta => $value): ?>
-                                <strong><?php echo ucfirst($proprieta); ?>:</strong> <?php echo $value; ?><br>
+                                <strong><?php echo ucfirst($campi["$proprieta"]); ?>:</strong> <?php echo $value; ?><br>
                             <?php endforeach; ?>
                         </div>
                         <div class="modal-footer">

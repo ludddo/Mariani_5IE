@@ -1,15 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="it">
     <head>
-        <title>Title</title>
-        <!-- Required meta tags -->
+        <title>Gestionale Famiglie</title>
         <meta charset="utf-8" />
         <meta
             name="viewport"
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
-
-        <!-- Bootstrap CSS v5.2.1 -->
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -17,7 +14,6 @@
             crossorigin="anonymous"
         />
     </head>
-
     <body>
         <div class="container mt-4">
             <h1 class="alert alert-info">Gestionale Famiglie</h1>
@@ -44,8 +40,26 @@
             </form>
             <form action="provincia.php" method="get">
                 <div class="mb-3">
-                    <label for="n" class="form-label">Inserisci la Provincia</label>
-                    <input type="text" class="form-control" id="n" name="n"/>
+                    <label for="provincia" class="form-label">Inserisci la Provincia</label>
+                    <select class="form-control" id="provincia" name="provincia">
+                        <?php
+                            $famigliejson = file_get_contents("Famiglie.json");
+                            $db = json_decode($famigliejson, true);
+                            $province = [];
+
+                            foreach ($db as $persona) {
+                                if (isset($persona['res_prov']) && !in_array($persona['res_prov'], $province)) {
+                                    $province[] = $persona['res_prov'];
+                                }
+                            }
+
+                            sort($province);
+
+                            foreach ($province as $provincia) {
+                                echo "<option value=\"$provincia\">$provincia</option>";
+                            }
+                        ?>
+                    </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Invia</button>
             </form>
