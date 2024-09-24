@@ -15,49 +15,64 @@
         />
     </head>
     <?php 
-        $famigliejson=file_get_contents("Famiglie.json");
-        $db=json_decode($famigliejson);
-        $n=$_GET["n"];
-        $primaPersona= $db[$n];
+        $famigliejson = file_get_contents("Famiglie.json");
+        $db = json_decode($famigliejson, true);
+        $codice_fiscale = $_GET["n"];
+        $personaTrovata = null;
+        
+        foreach ($db as $persona) {
+            if ($persona['cod_fis'] === $codice_fiscale) {
+                $personaTrovata = $persona;
+                break;
+            }
+        }
     ?>
     <body>
-    <div class="container mt-4">
+        <div class="container mt-4">
             <h1 class="alert alert-info">Gestionale Famiglie</h1>
 
-            <div class="card" style="width: 18rem;">
-                <img src=<?php if ($primaPersona->sesso == "F") echo "img/donnaVivace.jpeg"; else echo "img/uomoVivace.jpeg";
-                        ?> class="card-img-top"/>
-                <div class="card-body">
-                    <h5 class="card-title"><?php echo $primaPersona->cognome . " " . $primaPersona->nome; ?></h5>
-                    <p class="card-text">
-                        <strong>Età:</strong> <?php echo $primaPersona->data_nascita; ?><br>
-                        <strong>Indirizzo:</strong> <?php echo $primaPersona->indirizzo; ?><br>
-                    </p>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#dettagliModal">
-                        Mostra Dettagli
-                    </button>
+            <?php if ($personaTrovata): ?>
+                <div class="card" style="width: 18rem;">
+                    <img src="<?php echo $personaTrovata['sesso'] === 'F' ? 'img/donnaVivace.jpeg' : 'img/uomoVivace.jpeg'; ?>" class="card-img-top" alt="Immagine di <?php echo $personaTrovata['sesso'] === 'F' ? 'donna' : 'uomo'; ?>" />
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo $personaTrovata['cognome'] . " " . $personaTrovata['nome']; ?></h5>
+                        <p class="card-text">
+                            <strong>Età:</strong> <?php echo $personaTrovata['data_nascita']; ?><br>
+                            <strong>Indirizzo:</strong> <?php echo $personaTrovata['indirizzo']; ?><br>
+                        </p>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#dettagliModal">
+                            Mostra Dettagli
+                        </button>
+                    </div>
                 </div>
-            </div>
+            <?php else: ?>
+                <div class="alert alert-danger" role="alert">
+                    Nessuna persona trovata con il codice fiscale fornito.
+                </div>
+            <?php endif; ?>
         </div>
 
-        <div class="modal fade" id="dettagliModal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="dettagliModalLabel">Dettagli di <?php echo $primaPersona->cognome . " " . $primaPersona->nome; ?></h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <?php foreach ($primaPersona as $proprieta => $value): ?>
-                            <?php echo $proprieta ?>:<?php echo $value; ?><br>
-                        <?php endforeach; ?>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+        <?php if ($personaTrovata): ?>
+            <div class="modal fade" id="dettagliModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="dettagliModalLabel">Dettagli di <?php echo $personaTrovata['cognome'] . " " . $personaTrovata['nome']; ?></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <?php foreach ($personaTrovata as $proprieta => $value): ?>
+                                <strong><?php echo ucfirst($proprieta); ?>:</strong> <?php echo $value; ?><br>
+                            <?php endforeach; ?>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        <?php endif; ?>
+
         <script
             src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
             integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
