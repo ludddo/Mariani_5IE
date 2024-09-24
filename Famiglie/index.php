@@ -21,28 +21,28 @@
     <body>
         <div class="container mt-4">
             <h1 class="alert alert-info">Gestionale Famiglie</h1>
-            <form action="test.php" method="get">
+            <form action="codiceFiscale.php" method="get">
                 <div class="mb-3">
                     <label for="n" class="form-label">Inserisci il Codice Fiscale</label>
                     <input type="text" class="form-control" id="n" name="n"/>
                 </div>
                 <button type="submit" class="btn btn-primary">Invia</button>
             </form>
-            <form action="test.php" method="get">
+            <form action="codiceFamiglia.php" method="get">
                 <div class="mb-3">
                     <label for="n" class="form-label">Inserisci il Codice Famiglia</label>
                     <input type="text" class="form-control" id="n" name="n"/>
                 </div>
                 <button type="submit" class="btn btn-primary">Invia</button>
             </form>
-            <form action="test.php" method="get">
+            <form action="eta.php" method="get">
                 <div class="mb-3">
                     <label for="n" class="form-label">Inserisci l'Età</label>
                     <input type="text" class="form-control" id="n" name="n"/>
                 </div>
                 <button type="submit" class="btn btn-primary">Invia</button>
             </form>
-            <form action="test.php" method="get">
+            <form action="provincia.php" method="get">
                 <div class="mb-3">
                     <label for="n" class="form-label">Inserisci la Provincia</label>
                     <input type="text" class="form-control" id="n" name="n"/>
