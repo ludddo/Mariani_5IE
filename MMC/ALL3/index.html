@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .spinner-border {
+            display: none;
+            width: 3rem;
+            height: 3rem;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1>Benvenuto</h1>
+            </div>
+            <div class="card-body">
+                <p>Puoi scegliere se iniziare a compilare il questionario o caricare un file JSON per poi essere reindirizzato a process.php.</p>
+                <div class="d-flex justify-content-between">
+                    <button onclick="startQuestionnaire()" class="btn btn-primary">Inizia a compilare il questionario</button>
+                    <input type="file" id="jsonFileInput" class="btn btn-secondary" accept=".json" onchange="loadJSONFile(event)">
+                </div>
+                <div class="text-center mt-4">
+                    <div class="spinner-border text-primary" role="status" id="loadingSpinner">
+                        <span class="sr-only">Caricamento...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function startQuestionnaire() {
+            window.location.href = 'questionario.html';
+        }
+
+        function loadJSONFile(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const jsonData = JSON.parse(e.target.result);
+                    localStorage.setItem('formData', JSON.stringify(jsonData));
+                    sendJSONToServer(jsonData);
+                };
+                reader.readAsText(file);
+                document.getElementById('loadingSpinner').style.display = 'block';
+            }
+        }
+
+        function sendJSONToServer(jsonData) {
+            fetch('process.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(jsonData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('loadingSpinner').style.display = 'none';
+                if (data.success) {
+                    window.location.href = 'https://docs.google.com/document/d/' + data.documentId;
+                } else {
+                    console.error('Errore durante l\'elaborazione del documento:', data.message);
+                }
+            })
+            .catch(error => {
+                document.getElementById('loadingSpinner').style.display = 'none';
+                console.error('Errore durante la richiesta:', error);
+            });
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

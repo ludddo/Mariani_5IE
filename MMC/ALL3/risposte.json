@@ -1,0 +1,42 @@
+{
+  "lift": "no",
+  "deposit": "yes",
+  "push": "no",
+  "pull": "yes",
+  "carry": "no",
+  "weight": "yes",
+  "mechanical": "no",
+  "pavement": "yes",
+  "minimalHandling": "no",
+  "thermalEnv": "yes",
+  "twoHands": "yes",
+  "posture": "yes",
+  "onePerson": "no",
+  "gradualLift": "yes",
+  "weight5to10": "yes",
+  "upright": "no",
+  "closeToBody": "yes",
+  "weight3to5": "no",
+  "verticalDistance": "yes",
+  "verticalDislocation": "no",
+  "horizontalDistance": "yes",
+  "trunkRotation": "no",
+  "lifting13min": "yes",
+  "lifting11min": "no",
+  "lifting9min": "yes",
+  "weightOver25": "yes",
+  "weightOver20": "no",
+  "infoProvided": "yes",
+  "trainingProvided": "no",
+  "trainingManual": "yes",
+  "dynamicData": [
+    {
+      "description": "1231",
+      "num_objects": "23",
+      "num_lifts": "123",
+      "weight": "1231",
+      "duration": "12312",
+      "workers": "12"
+    }
+  ]
+}

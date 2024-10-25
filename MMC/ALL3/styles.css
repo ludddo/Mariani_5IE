@@ -1,0 +1,84 @@
+/* Personalizzazione della Palette */
+body, html {
+    background-color: #1E201E; /* Sfondo principale */
+    color: #ECDFCC; /* Testo principale */
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+.card {
+    background-color: #3C3D37; /* Colore di sfondo del contenitore principale */
+    border: none;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Ombra del contenitore */
+}
+
+.card-header {
+    background-color: #697565; /* Sfondo dell'intestazione del card */
+}
+
+h1, h2 {
+    color: #ECDFCC; /* Colore principale dei titoli */
+}
+
+.text-warning {
+    color: #ffe066 !important; /* Cambia il colore di Bootstrap "warning" */
+}
+
+/* Stili per pulsanti */
+.btn-primary {
+    background-color: #697565;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #ECDFCC; /* Hover del pulsante avanti */
+    color: #1E201E; /* Colore del testo del pulsante in hover */
+}
+
+.btn-secondary {
+    background-color: #3C3D37;
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: #697565;
+}
+
+.btn-success {
+    background-color: #247ba0;
+}
+
+.btn-success:hover {
+    background-color: #70c1b3;
+    color: #1E201E;
+}
+
+/* Stili per input e textarea */
+.form-control {
+    background-color: #3C3D37; /* Sfondo degli input */
+    color: #ECDFCC; /* Colore del testo degli input */
+    border: 1px solid #697565; /* Bordo degli input */
+}
+
+.form-control:focus {
+    border-color: #ECDFCC; /* Bordo degli input in focus */
+    box-shadow: none;
+    background-color: #3C3D37; /* Sfondo durante il focus */
+}
+
+/* Nascondi tutti gli step per default */
+#multiStepForm .step {
+    display: none; 
+}
+
+/* Visualizza il primo step */
+#step-1 {
+    display: block; /* Mostra il primo step */
+}
+
+/* Messaggio di errore */
+#error-message {
+    color: #f25f5c; /* Colore del messaggio di errore */
+    font-size: 1.1em;
+}

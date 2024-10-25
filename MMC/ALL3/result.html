@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risultato</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .spinner-border {
+            display: none;
+            width: 3rem;
+            height: 3rem;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1>Risultato</h1>
+            </div>
+            <div class="card-body">
+                <p>Hai completato il questionario. Puoi scegliere di scaricare il file JSON o creare direttamente l'Allegato.</p>
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-primary" onclick="downloadJSON()">Scarica JSON</button>
+                    <button class="btn btn-secondary" onclick="viewResult()">Crea l'Allegato 3</button>
+                </div>
+                <div class="text-center mt-4">
+                    <div class="spinner-border text-primary" role="status" id="loadingSpinner">
+                        <span class="sr-only">Caricamento...</span>
+                    </div>
+                </div>
+                <div id="resultContainer" class="mt-4" style="display: none;">
+                    <h2>Risultati del Questionario</h2>
+                    <pre id="resultData" class="bg-dark text-light p-3 rounded"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function downloadJSON() {
+            const data = JSON.parse(localStorage.getItem('formData'));
+            const json = JSON.stringify(data, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'result.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function viewResult() {
+            const jsonData = localStorage.getItem('formData');
+            if (jsonData) {
+                document.getElementById('loadingSpinner').style.display = 'block';
+                fetch('process.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: jsonData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('loadingSpinner').style.display = 'none';
+                    if (data.success) {
+                        window.location.href = 'https://docs.google.com/document/d/' + data.documentId;
+                    } else {
+                        console.error('Errore durante l\'elaborazione del documento:', data.message);
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('loadingSpinner').style.display = 'none';
+                    console.error('Errore durante la richiesta:', error);
+                });
+            } else {
+                console.error('Nessun dato JSON trovato nel LocalStorage.');
+            }
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
