@@ -36,9 +36,14 @@ function getClient() {
     return $client;
 }
 
-    $jsonData = file_get_contents('risposte.json');
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $jsonData = file_get_contents('php://input');
     $responses = json_decode($jsonData, true);
 
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        echo 'Errore nella decodifica del JSON: ' . json_last_error_msg();
+        exit();
+    }
 
     $client = getClient();
     $service = new Docs($client);
@@ -59,15 +64,9 @@ function getClient() {
 
     $requests = [];
     $tableCounter = 0; // Contatore per le tabelle
-    $dataAvailable = true; // Flag per verificare se ci sono ancora dati disponibili
-    $lastProcessedIndex = 0; // Indice dell'ultimo elemento processato
 
     // Itera attraverso gli elementi del documento
     foreach ($content as $element) {
-        if (!$dataAvailable) {
-            break;
-        }
-
         if (isset($element->table)) {
             $tableCounter++;
             // Salta la prima tabella
@@ -85,11 +84,6 @@ function getClient() {
 
                         // Supponiamo che le risposte siano in ordine nel file JSON
                         $response = current($responses);
-                        if ($response === false) {
-                            $dataAvailable = false;
-                            $lastProcessedIndex = $element->endIndex;
-                            break;
-                        }
                         next($responses);
 
                         if ($response === 'yes') {
@@ -173,7 +167,7 @@ function getClient() {
     }
 
     // Inserisci un paragrafo con i dati di dynamicData sotto la quinta tabella
-    if ($endIndex > 0 && isset($responses['dynamicData'])) {
+    if ($endIndex > 0) {
         $dynamicData = $responses['dynamicData'];
         $dynamicDataText = "";
         foreach ($dynamicData as $data) {
@@ -196,20 +190,6 @@ function getClient() {
         ];
     }
 
-    // Se non ci sono più dati, cancella il resto del documento
-    if (!$dataAvailable) {
-        $lastElement = end($content);
-        $lastEndIndex = $lastElement->endIndex - 1; // Escludi il carattere di nuova riga finale
-        $requests[] = [
-            'deleteContentRange' => [
-                'range' => [
-                    'startIndex' => $lastProcessedIndex,
-                    'endIndex' => $lastEndIndex
-                ]
-            ]
-        ];
-    }
-
     // Esegui tutte le richieste in un'unica chiamata batchUpdate
     if (!empty($requests)) {
         $batchUpdateRequest = new Google\Service\Docs\BatchUpdateDocumentRequest([
@@ -222,4 +202,7 @@ function getClient() {
     } else {
         echo json_encode(['success' => false, 'message' => 'Nessuna modifica da applicare.']);
     }
+} else {
+    echo json_encode(['error' => 'Accedi a questa pagina solo tramite richieste POST.']);
+}
 ?>

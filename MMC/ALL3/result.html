@@ -75,7 +75,7 @@
                 })
                 .catch(error => {
                     document.getElementById('loadingSpinner').style.display = 'none';
-                    console.error('Errore durante la richiesta:', error);
+                    console.error(  'Errore durante la richiesta:', error);
                 });
             } else {
                 console.error('Nessun dato JSON trovato nel LocalStorage.');
