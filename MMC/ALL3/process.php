@@ -36,8 +36,9 @@ function getClient() {
     return $client;
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $jsonData = file_get_contents('php://input');
+//if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //$jsonData = file_get_contents('php://input');
+    $jsonData = file_get_contents('risposte.json');
     $responses = json_decode($jsonData, true);
 
     if (json_last_error() !== JSON_ERROR_NONE) {
@@ -190,6 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ];
     }
 
+
     // Esegui tutte le richieste in un'unica chiamata batchUpdate
     if (!empty($requests)) {
         $batchUpdateRequest = new Google\Service\Docs\BatchUpdateDocumentRequest([
@@ -202,7 +204,60 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         echo json_encode(['success' => false, 'message' => 'Nessuna modifica da applicare.']);
     }
-} else {
-    echo json_encode(['error' => 'Accedi a questa pagina solo tramite richieste POST.']);
-}
+
+    // pulisci requests
+    
+    // Pulisci requests
+    $requests = [];
+    
+    $document = $service->documents->get($newDocumentId);
+    $content = $document->getBody()->getContent();
+
+    // Gestisci la nona tabella per inserire l'indice di sollevamento
+    $tableCounter = 0; // Resetta il contatore per iterare di nuovo
+    $endIndex = 0; // Variabile per memorizzare l'indice di fine della nona tabella
+    foreach ($content as $element) {
+        if (isset($element->table)) {
+            $tableCounter++;
+            if ($tableCounter == 9) {
+                $endIndex = $element->endIndex;
+                break;
+            }
+        }
+    }
+
+    // Inserisci l'indice di sollevamento sotto la nona tabella
+    if ($endIndex > 0) {
+        $nioshScore = $responses['nioshScore'];
+        $liftingIndexText = "";
+        foreach ($dynamicData as $data) {
+            $liftingIndex = $data['weight'] / $nioshScore;
+            $liftingIndexText .= "Per l'oggetto " . $data['description'] . " l'indice di sollevamento è " . $liftingIndex . "\n";
+        }
+
+        $requests[] = [
+            'insertText' => [
+                'location' => [
+                    'index' => $endIndex // Inserisci subito dopo la fine della tabella
+                ],
+                'text' => $liftingIndexText
+            ]
+        ];
+    }
+
+        // Esegui la seconda richiesta di aggiornamento
+        if (!empty($requests)) {
+            $batchUpdateRequest = new Google\Service\Docs\BatchUpdateDocumentRequest([
+                'requests' => $requests
+            ]);
+
+            $response = $service->documents->batchUpdate($newDocumentId, $batchUpdateRequest);
+
+            echo json_encode(['success' => true, 'documentId' => $newDocumentId]);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Nessuna modifica da applicare.']);
+    }
+//} else {
+//    echo json_encode(['error' => 'Accedi a questa pagina solo tramite richieste POST.']);
+//}
 ?>

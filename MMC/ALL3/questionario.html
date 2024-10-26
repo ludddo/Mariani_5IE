@@ -240,12 +240,12 @@
                         <div class="mb-3">
                             <label class="form-label">C'è una buona interfaccia tra piedi e pavimenti?</label>
                             <div>
-                                <input type="radio" id="twoHandsYes" name="twoHands" value="yes" required>
-                                <label for="twoHandsYes">Sì</label>
+                                <input type="radio" id="pavementYes" name="pavement" value="yes" required>
+                                <label for="pavementYes">Sì</label>
                             </div>
                             <div>
-                                <input type="radio" id="twoHandsNo" name="twoHands" value="no">
-                                <label for="twoHandsNo">No</label>
+                                <input type="radio" id="twoHandsNo" name="pavement" value="no">
+                                <label for="pavementNo">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(14)">Indietro</button>
@@ -620,12 +620,88 @@
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(33)">Indietro</button>
-                        <button type="submit" class="btn btn-success">Invia</button>
+                        <button type="button" class="btn btn-primary next-btn" onclick="nextStep(33)">Avanti</button>
                     </div>
 
+                    <!-- Step 34 - CALCOLO SCHEDA NIOSH -->
+                    <div class="step" id="step-34">
+                        <h2 class="text-warning">CALCOLO SCHEDA NIOSH</h2>
+                        <div class="mb-3">
+                            <label class="form-label">Ora dovrai compilare il calcolo della scheda NIOSH per calcolare il peso limite raccomandato e l’indice di sollevamento.</label>
+                        </div>
 
+                        <!-- Domanda 1 -->
+                        <div class="form-group">
+                            <label for="altezza">Altezza da terra delle mani all'inizio (o alla fine) del sollevamento (cm)</label>
+                            <input type="number" class="form-control" id="altezza" name="altezza" required>
+                        </div>
 
+                        <!-- Domanda 2 -->
+                        <div class="form-group">
+                            <label for="distanzaVerticale">Distanza verticale di spostamento del peso fra inizio e fine del sollevamento (cm)</label>
+                            <input type="number" class="form-control" id="distanzaVerticale" name="distanzaVerticale" required>
+                        </div>
 
+                        <!-- Domanda 3 -->
+                        <div class="form-group">
+                            <label for="distanzaOrizzontale">Distanza orizzontale tra le mani e il punto di mezzo delle caviglie (cm)</label>
+                            <input type="number" class="form-control" id="distanzaOrizzontale" name="distanzaOrizzontale" required>
+                        </div>
+
+                        <!-- Domanda 4 -->
+                        <div class="form-group">
+                            <label for="angolo">Dislocazione angolare del peso (gradi)</label>
+                            <input type="number" class="form-control" id="angolo" name="angolo" required>
+                        </div>
+
+                        <!-- Domanda 5 -->
+                        <div class="form-group">
+                            <label for="presa">Giudizio sulla presa del carico</label>
+                            <select class="form-control" id="presa" name="presa" required>
+                                <option value="buono">Buono</option>
+                                <option value="scarso">Scarso</option>
+                            </select>
+                        </div>
+
+                        <!-- Domanda 6 -->
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="frequenza">Frequenza dei gesti (numero di atti al minuto) in relazione alla durata</label>
+                                    <select class="form-control" id="frequenza" name="frequenza" required>
+                                        <option value="continuo_meno_1_ora">Continuo &lt; 1 ora</option>
+                                        <option value="continuo_1_2_ore">Continuo da 1 a 2 ore</option>
+                                        <option value="continuo_2_8_ore">Continuo da 2 a 8 ore</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="numeroGesti">Numero di gesti compiuti</label>
+                                    <input type="number" class="form-control" id="numeroGesti" name="numeroGesti" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Domanda 7 -->
+                        <div class="form-group">
+                            <label for="presa">Solleva con un solo gesto</label>
+                            <select class="form-control" id="gesto" name="gesto" required>
+                                <option value="si">Si</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+
+                        <!-- Domanda 8 -->
+                        <div class="form-group">
+                            <label>Sollevano in due operatori</label>
+                            <select class="form-control" id="operatori" name="operatori" required>
+                                <option value="si">Si</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+
+                        <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(34)">Indietro</button>
+                        <button type="submit" class="btn btn-success">Invia</button>
+                    </div>
                 </form>
                 <div id="error-message" class="text-danger mt-3"></div>
             </div>

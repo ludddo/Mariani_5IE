@@ -138,9 +138,209 @@ function collectFormData() {
         });
     });
 
+    // Check if dynamicData is empty
+    if (dynamicData.length === 0) {
+        dynamicData.push({
+            description: "",
+            num_objects: "",
+            num_lifts: "",
+            weight: "",
+            duration: "",
+            workers: ""
+        });
+    }
+
     formData['dynamicData'] = dynamicData;
 
+    // Collect NIOSH data
+    const altezzaElement = document.getElementById('altezza');
+    const distanzaVerticaleElement = document.getElementById('distanzaVerticale');
+    const distanzaOrizzontaleElement = document.getElementById('distanzaOrizzontale');
+    const angoloElement = document.getElementById('angolo');
+    const presaElement = document.getElementById('presa');
+    const frequenzaElement = document.getElementById('frequenza');
+    const numeroGestiElement = document.getElementById('numeroGesti');
+    const gestoElement = document.getElementById('gesto');
+    const operatoriElement = document.getElementById('operatori');
+
+    if (altezzaElement && distanzaVerticaleElement && distanzaOrizzontaleElement && angoloElement && presaElement && frequenzaElement && numeroGestiElement && gestoElement && operatoriElement) {
+        const altezza = altezzaElement.value;
+        const distanzaVerticale = distanzaVerticaleElement.value;
+        const distanzaOrizzontale = distanzaOrizzontaleElement.value;
+        const angolo = angoloElement.value;
+        const presa = presaElement.value;
+        const frequenza = frequenzaElement.value;
+        const numeroGesti = numeroGestiElement.value;
+        const gesto = gestoElement.value;
+        const operatori = operatoriElement.value;
+
+        // Calculate NIOSH score
+        const nioshScore = calculateNioshScore(altezza, distanzaVerticale, distanzaOrizzontale, angolo, presa, frequenza, numeroGesti, gesto, operatori);
+
+        formData['nioshScore'] = nioshScore;
+    } else {
+        console.warn('Alcuni elementi NIOSH non sono stati trovati nel DOM.');
+    }
+
     return formData;
+}
+
+function calculateNioshScore(altezza, distanzaVerticale, distanzaOrizzontale, angolo, presa, frequenza, numeroGesti, gesto, operatori) {
+    var altezzaFattore = 0;
+    var distanzaVerticaleFattore = 0;
+    var distanzaOrizzontaleFattore = 0;
+    var angoloFattore = 0;
+    var presaFattore = 0;
+    var frequenzaFattore = 0;
+    var gestoFattore = 0;
+    var operatoriFattore = 0;
+
+    if (altezza >= 0 && altezza <= 25) {
+        altezzaFattore = 0.77;
+    } else if (altezza > 25 && altezza <= 50) {
+        altezzaFattore = 0.85;
+    } else if (altezza > 50 && altezza <= 75) {
+        altezzaFattore = 0.93;
+    } else if (altezza > 75 && altezza <= 100) {
+        altezzaFattore = 1;
+    } else if (altezza > 100 && altezza <= 125) {
+        altezzaFattore = 0.93;
+    } else if (altezza > 125 && altezza <= 150) {
+        altezzaFattore = 0.85;
+    } else if (altezza > 150 && altezza <= 175) {
+        altezzaFattore = 0.78;
+    } else if (altezza > 175) {
+        altezzaFattore = 0;
+    }
+
+    if (distanzaVerticale >= 0 && distanzaVerticale <= 25) {
+        distanzaVerticaleFattore = 1;
+    } else if (distanzaVerticale > 25 && distanzaVerticale <= 30) {
+        distanzaVerticaleFattore = 0.97;
+    } else if (distanzaVerticale > 30 && distanzaVerticale <= 40) {
+        distanzaVerticaleFattore = 0.93;
+    } else if (distanzaVerticale > 40 && distanzaVerticale <= 50) {
+        distanzaVerticaleFattore = 0.91;
+    } else if (distanzaVerticale > 50 && distanzaVerticale <= 70) {
+        distanzaVerticaleFattore = 0.88;
+    } else if (distanzaVerticale > 70 && distanzaVerticale <= 100) {
+        distanzaVerticaleFattore = 0.87;
+    } else if (distanzaVerticale > 100 && distanzaVerticale <= 175) {
+        distanzaVerticaleFattore = 0.86;
+    } else if (distanzaVerticale > 170) {
+        distanzaVerticaleFattore = 0;
+    }
+
+    if (distanzaOrizzontale >= 0 && distanzaOrizzontale <= 25) {
+        distanzaOrizzontaleFattore = 1;
+    } else if (distanzaOrizzontale > 25 && distanzaOrizzontale <= 30) {
+        distanzaOrizzontaleFattore = 0.83;
+    } else if (distanzaOrizzontale > 30 && distanzaOrizzontale <= 40) {
+        distanzaOrizzontaleFattore = 0.63;
+    } else if (distanzaOrizzontale > 40 && distanzaOrizzontale <= 50) {
+        distanzaOrizzontaleFattore = 0.50;
+    } else if (distanzaOrizzontale > 50 && distanzaOrizzontale <= 55) {
+        distanzaOrizzontaleFattore = 0.45;
+    } else if (distanzaOrizzontale > 55 && distanzaOrizzontale <= 60) {
+        distanzaOrizzontaleFattore = 0.42;
+    } else if (distanzaOrizzontale > 60) {
+        distanzaOrizzontaleFattore = 0;
+    }
+
+    if (angolo >= 0 && angolo <= 30) {
+        angoloFattore = 1;
+    } else if (angolo > 30 && angolo <= 60) {
+        angoloFattore = 0.90;
+    } else if (angolo > 60 && angolo <= 90) {
+        angoloFattore = 0.81;
+    } else if (angolo > 90 && angolo <= 120) {
+        angoloFattore = 0.71;
+    } else if (angolo > 120 && angolo < 135) {
+        angoloFattore = 0.52;
+    } else if (angolo == 135) {
+        angoloFattore = 0.57;
+    } else if (angolo > 135) {
+        angoloFattore = 0;
+    }
+
+    if (presa == "buono") {
+        presaFattore = 1;
+    } else {
+        presaFattore = 0.90;
+    }
+
+    if (frequenza == "continuo_meno_1_ora") {
+        if (numeroGesti > 0 && numeroGesti <= 0.20) {
+            frequenzaFattore = 1;
+        } else if (numeroGesti > 0.20 && numeroGesti <= 1) {
+            frequenzaFattore = 0.94;
+        } else if (numeroGesti > 1 && numeroGesti <= 4) {
+            frequenzaFattore = 0.84;
+        } else if (numeroGesti > 4 && numeroGesti <= 6) {
+            frequenzaFattore = 0.75;
+        } else if (numeroGesti > 6 && numeroGesti <= 9) {
+            frequenzaFattore = 0.52;
+        } else if (numeroGesti > 9 && numeroGesti <= 12) {
+            frequenzaFattore = 0.37;
+        } else if (numeroGesti > 12 && numeroGesti <= 15) {
+            frequenzaFattore = 0.12;
+        } else if (numeroGesti > 15) {
+            frequenzaFattore = 0;
+        }
+    } else if (frequenza == "continuo_1_2_ore") {
+        if (numeroGesti > 0 && numeroGesti <= 0.20) {
+            frequenzaFattore = 0.95;
+        } else if (numeroGesti > 0.20 && numeroGesti <= 1) {
+            frequenzaFattore = 0.88;
+        } else if (numeroGesti > 1 && numeroGesti <= 4) {
+            frequenzaFattore = 0.72;
+        } else if (numeroGesti > 4 && numeroGesti <= 6) {
+            frequenzaFattore = 0.50;
+        } else if (numeroGesti > 6 && numeroGesti <= 9) {
+            frequenzaFattore = 0.30;
+        } else if (numeroGesti > 9 && numeroGesti <= 12) {
+            frequenzaFattore = 0.21;
+        } else if (numeroGesti > 12 && numeroGesti <= 15) {
+            frequenzaFattore = 0.09;
+        } else if (numeroGesti > 15) {
+            frequenzaFattore = 0;
+        }
+    } else if (frequenza == "continuo_2_8_ore") {
+        if (numeroGesti > 0 && numeroGesti <= 0.20) {
+            frequenzaFattore = 0.85;
+        } else if (numeroGesti > 0.20 && numeroGesti <= 1) {
+            frequenzaFattore = 0.75;
+        } else if (numeroGesti > 1 && numeroGesti <= 4) {
+            frequenzaFattore = 0.45;
+        } else if (numeroGesti > 4 && numeroGesti <= 6) {
+            frequenzaFattore = 0.27;
+        } else if (numeroGesti > 6 && numeroGesti <= 9) {
+            frequenzaFattore = 0.52;
+        } else if (numeroGesti > 9 && numeroGesti <= 12) {
+            frequenzaFattore = 0.00;
+        } else if (numeroGesti > 12 && numeroGesti <= 15) {
+            frequenzaFattore = 0.00;
+        } else if (numeroGesti > 15) {
+            frequenzaFattore = 0;
+        }
+    }
+
+    if (gesto == "si") {
+        gestoFattore = 0,60;
+    } else {
+        gestoFattore = 1;
+    }
+
+    if (operatori == "no") {
+        operatoriFattore = 1;
+    } else {
+        operatoriFattore = 0.85;
+    }
+
+    // Calcola il punteggio NIOSH
+    const nioshScore = 20 * altezzaFattore * distanzaVerticaleFattore * distanzaOrizzontaleFattore * angoloFattore * presaFattore * frequenzaFattore * gestoFattore * operatoriFattore;
+
+    return nioshScore;
 }
 
 function redirectToResult() {
@@ -155,6 +355,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.getElementById("multiStepForm").addEventListener("submit", function(event) {
     event.preventDefault(); // Prevent form submission
-    redirectToResult()
+    const formData = collectFormData(); // Collect form data including NIOSH score
+    localStorage.setItem('formData', JSON.stringify(formData)); // Save form data to localStorage
+    redirectToResult();
     alert("Le risposte sono state salvate in un file JSON.");
 });
