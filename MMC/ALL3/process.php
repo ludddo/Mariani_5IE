@@ -36,7 +36,7 @@ function getClient() {
     return $client;
 }
 
-//if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //$jsonData = file_get_contents('php://input');
     $jsonData = file_get_contents('risposte.json');
     $responses = json_decode($jsonData, true);
@@ -257,7 +257,7 @@ function getClient() {
         } else {
             echo json_encode(['success' => false, 'message' => 'Nessuna modifica da applicare.']);
     }
-//} else {
-//    echo json_encode(['error' => 'Accedi a questa pagina solo tramite richieste POST.']);
-//}
+} else {
+    echo json_encode(['error' => 'Accedi a questa pagina solo tramite richieste POST.']);
+}
 ?>
