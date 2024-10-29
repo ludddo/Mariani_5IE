@@ -631,6 +631,24 @@
                             <label class="form-label">Ora dovrai compilare il calcolo della scheda NIOSH per calcolare il peso limite raccomandato e l’indice di sollevamento.</label>
                         </div>
 
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="frequenza">Costante di Peso in Relazione alla Etá e Sesso</label>
+                                    <select class="form-control" id="costanteDiPeso" name="costanteDiPeso" required>
+                                        <option value="maschio">Maschio</option>
+                                        <option value="femmina">Femmina</option>
+
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="eta">Inserisci l'etá</label>
+                                    <input type="number" class="form-control" id="numeroGesti" name="numeroGesti" required>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Domanda 1 -->
                         <div class="form-group">
                             <label for="altezza">Altezza da terra delle mani all'inizio (o alla fine) del sollevamento (cm)</label>

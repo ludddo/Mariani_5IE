@@ -192,8 +192,10 @@ function collectFormData() {
     const numeroGestiElement = document.getElementById('numeroGesti');
     const gestoElement = document.getElementById('gesto');
     const operatoriElement = document.getElementById('operatori');
+    const costanteDiPesoElement = document.getElementById('costanteDiPeso');
+    const etaElement = document.getElementById('eta');
 
-    if (altezzaElement && distanzaVerticaleElement && distanzaOrizzontaleElement && angoloElement && presaElement && frequenzaElement && numeroGestiElement && gestoElement && operatoriElement) {
+    if (altezzaElement && distanzaVerticaleElement && distanzaOrizzontaleElement && angoloElement && presaElement && frequenzaElement && numeroGestiElement && gestoElement && operatoriElement && costanteDiPesoElement && etaElement) {
         const altezza = altezzaElement.value;
         const distanzaVerticale = distanzaVerticaleElement.value;
         const distanzaOrizzontale = distanzaOrizzontaleElement.value;
@@ -203,9 +205,11 @@ function collectFormData() {
         const numeroGesti = numeroGestiElement.value;
         const gesto = gestoElement.value;
         const operatori = operatoriElement.value;
+        const costanteDiPeso = costanteDiPesoElement.value;
+        const eta = etaElement.value;
 
         // Calculate NIOSH score
-        const nioshScore = calculateNioshScore(altezza, distanzaVerticale, distanzaOrizzontale, angolo, presa, frequenza, numeroGesti, gesto, operatori);
+        const nioshScore = calculateNioshScore(altezza, distanzaVerticale, distanzaOrizzontale, angolo, presa, frequenza, numeroGesti, gesto, operatori, costanteDiPeso, eta);
 
         formData['nioshScore'] = nioshScore;
     } else {
@@ -215,7 +219,7 @@ function collectFormData() {
     return formData;
 }
 
-function calculateNioshScore(altezza, distanzaVerticale, distanzaOrizzontale, angolo, presa, frequenza, numeroGesti, gesto, operatori) {
+function calculateNioshScore(altezza, distanzaVerticale, distanzaOrizzontale, angolo, presa, frequenza, numeroGesti, gesto, operatori, costanteDiPeso, eta) {
     var altezzaFattore = 0;
     var distanzaVerticaleFattore = 0;
     var distanzaOrizzontaleFattore = 0;
@@ -224,6 +228,7 @@ function calculateNioshScore(altezza, distanzaVerticale, distanzaOrizzontale, an
     var frequenzaFattore = 0;
     var gestoFattore = 0;
     var operatoriFattore = 0;
+    var CostantePesoASD = 20;
 
     if (altezza >= 0 && altezza <= 25) {
         altezzaFattore = 0.77;
@@ -367,12 +372,28 @@ function calculateNioshScore(altezza, distanzaVerticale, distanzaOrizzontale, an
         operatoriFattore = 0.85;
     }
 
+    if (costanteDiPeso == "maschio") {
+        if (eta < 18 || eta > 45) {
+            CostantePesoASD = 20;
+        }
+        else {
+            CostantePesoASD = 25;
+        }
+    } else {
+        if (eta < 18 || eta > 45) {
+            CostantePesoASD = 15;
+        }
+        else {
+            CostantePesoASD = 20;
+        }
+    }
+
     //fai un alert con tutto anche per debug anche non fattori
-    alert("Altezza: " + altezza + "\nDistanza Verticale: " + distanzaVerticale + "\nDistanza Orizzontale: " + distanzaOrizzontale + "\nAngolo: " + angolo + "\nPresa: " + presa + "\nFrequenza: " + frequenza + "\nNumero Gesti: " + numeroGesti + "\nGesto: " + gesto + "\nOperatori: " + operatori + "\n\nAltezza Fattore: " + altezzaFattore + "\nDistanza Verticale Fattore: " + distanzaVerticaleFattore + "\nDistanza Orizzontale Fattore: " + distanzaOrizzontaleFattore + "\nAngolo Fattore: " + angoloFattore + "\nPresa Fattore: " + presaFattore + "\nFrequenza Fattore: " + frequenzaFattore + "\nGesto Fattore: " + gestoFattore + "\nOperatori Fattore: " + operatoriFattore);
+    //alert("Altezza: " + altezza + "\nDistanza Verticale: " + distanzaVerticale + "\nDistanza Orizzontale: " + distanzaOrizzontale + "\nAngolo: " + angolo + "\nPresa: " + presa + "\nFrequenza: " + frequenza + "\nNumero Gesti: " + numeroGesti + "\nGesto: " + gesto + "\nOperatori: " + operatori + "\n\nAltezza Fattore: " + altezzaFattore + "\nDistanza Verticale Fattore: " + distanzaVerticaleFattore + "\nDistanza Orizzontale Fattore: " + distanzaOrizzontaleFattore + "\nAngolo Fattore: " + angoloFattore + "\nPresa Fattore: " + presaFattore + "\nFrequenza Fattore: " + frequenzaFattore + "\nGesto Fattore: " + gestoFattore + "\nOperatori Fattore: " + operatoriFattore);
 
 
     // Calcola il punteggio NIOSH peso limite
-    const nioshScore = 20 * altezzaFattore * distanzaVerticaleFattore * distanzaOrizzontaleFattore * angoloFattore * presaFattore * frequenzaFattore * gestoFattore * operatoriFattore;
+    const nioshScore = CostantePesoASD * altezzaFattore * distanzaVerticaleFattore * distanzaOrizzontaleFattore * angoloFattore * presaFattore * frequenzaFattore * gestoFattore * operatoriFattore;
 
     return nioshScore;
 }
