@@ -281,6 +281,7 @@ function deleteLinesFromGoogleDoc($documentId, $startIndex) {
     ]);
     $service->documents->batchUpdate($documentId, $batchUpdateRequest);
     
+    echo json_encode(['success' => true, 'documentId' => $documentId]);
     exit();
 }
 
