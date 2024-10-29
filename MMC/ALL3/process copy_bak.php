@@ -37,7 +37,8 @@ function getClient() {
 }
 
 function handlePostRequest() {
-    $jsonData = file_get_contents('php://input');
+    //$jsonData = file_get_contents('php://input');
+    $jsonData = file_get_contents('risposte.json');
     $responses = json_decode($jsonData, true);
 
     $client = getClient();
@@ -46,16 +47,16 @@ function handlePostRequest() {
     $newDocumentId = createDocumentCopy($client);
     $content = getDocumentContent($service, $newDocumentId);
 
-    $requests = processTables($content, $responses, $newDocumentId, $service);
+    $requests = processTables($content, $responses);
     $requests = array_merge($requests, handleDynamicData($content, $responses));
-    $ritornamento = executeBatchUpdate($service, $newDocumentId, $requests);
+    executeBatchUpdate($service, $newDocumentId, $requests);
 
     $requests = [];
     $document = $service->documents->get($newDocumentId);
     $content = $document->getBody()->getContent();
     $requests = array_merge($requests, handleLiftingIndex($content, $responses));
     executeBatchUpdate($service, $newDocumentId, $requests);
-    echo $ritornamento;
+
 }
 
 function createDocumentCopy($client) {
@@ -72,10 +73,9 @@ function getDocumentContent($service, $documentId) {
     return $document->getBody()->getContent();
 }
 
-function processTables($content, $responses, $documentId, $service) {
+function processTables($content, $responses) {
     $requests = [];
     $tableCounter = 0;
-    $jsonAttributeCounter = 0;
 
     foreach ($content as $element) {
         if (isset($element->table)) {
@@ -92,20 +92,11 @@ function processTables($content, $responses, $documentId, $service) {
 
                         $response = current($responses);
                         next($responses);
-                        $jsonAttributeCounter++;
 
                         if ($response === 'yes') {
                             $requests = array_merge($requests, updateTextStyle($yesCell, 'X'));
                         } elseif ($response === 'no') {
                             $requests = array_merge($requests, updateTextStyle($noCell, 'X'));
-                        }
-
-                        // Check if the next attribute is 'dynamicData'
-                        if (($jsonAttributeCounter == 5 || $jsonAttributeCounter == 6 || ($jsonAttributeCounter == 7 && $response == 'yes') || $jsonAttributeCounter == 23 /*|| $jsonAttributeCounter == 30*/) && key($responses) === 'dynamicData') {
-                            $startIndex = $element->endIndex;
-                            executeBatchUpdate($service, $documentId, $requests);
-                            deleteLinesFromGoogleDoc($documentId, $startIndex);
-                            return $requests;
                         }
                     }
                 }
@@ -208,22 +199,9 @@ function handleLiftingIndex($content, $responses) {
     if ($endIndex > 0) {
         $nioshScore = $responses['nioshScore'];
         $liftingIndexText = "";
-        if ($nioshScore == 0) {
-            $liftingIndexText .= "La situazione è accettabile e non è richiesto alcuno specifico intervento.\n\n";
-        } else {
-            foreach ($responses['dynamicData'] as $data) {
-                $liftingIndex = $data['weight'] / $nioshScore;
-                $liftingIndexText .= "Per l'oggetto " . $data['description'] . " l'indice di sollevamento è " . $liftingIndex . "\n";
-
-                //AGGIUNGI A LIftingindextest se R < 0.85 la situazione é accettabile
-                if ($liftingIndex < 0.85) {
-                    $liftingIndexText .= "La situazione è accettabile e non è richiesto alcuno specifico intervento.\n\n";
-                } else if ($liftingIndex >= 0.85 && $liftingIndex < 1) {
-                    $liftingIndexText .= "La situazione si avvicina ai limiti; una quota della popolazione (a dubbia esposizione) può essere non protetta e pertanto occorrono cautele, anche se non è necessario un intervento immediato. E’ comunque consigliato attivare la formazione e, a discrezione del medico, la sorveglianza sanitaria del personale addetto.\n\n";
-                } else {
-                    $liftingIndexText .= "la situazione può comportare un rischio per quote crescenti di popolazione e pertanto richiede un intervento di prevenzione primaria. Il rischio è tanto più elevato quanto maggiore è l’indice. Vi è necessità di un intervento immediato di prevenzione per situazioni con indice maggiore di 3; l’intervento è comunque necessario anche con indici compresi tra 1,25 e 3. E’ utile programmare gli interventi identificando le priorità di rischio. Successivamente riverificare l’indice di rischio dopo ogni intervento. Va comunque attivata la sorveglianza sanitaria periodica del personale esposto con periodicità bilanciata in funzione del livello di rischio.\n\n";
-                }
-            }
+        foreach ($responses['dynamicData'] as $data) {
+            $liftingIndex = $data['weight'] / $nioshScore;
+            $liftingIndexText .= "Per l'oggetto " . $data['description'] . " l'indice di sollevamento è " . $liftingIndex . "\n";
         }
 
         $requests[] = [
@@ -247,48 +225,18 @@ function executeBatchUpdate($service, $documentId, $requests) {
 
         $response = $service->documents->batchUpdate($documentId, $batchUpdateRequest);
 
-        return json_encode(['success' => true, 'documentId' => $documentId]);
+        echo json_encode(['success' => true, 'documentId' => $documentId]);
     } else {
-        return json_encode(['success' => false, 'message' => 'Nessuna modifica da applicare.']);
+        echo json_encode(['success' => false, 'message' => 'Nessuna modifica da applicare.']);
     }
 }
 
-function deleteLinesFromGoogleDoc($documentId, $startIndex) {
-    $client = getClient();
-    $service = new Google\Service\Docs($client);
-
-    // Ottieni il contenuto del documento
-    $document = $service->documents->get($documentId);
-    $content = $document->getBody()->getContent();
-    $lastElement = end($content);
-    $endIndex = $lastElement->getEndIndex() - 1;
-
-    // Crea una richiesta di aggiornamento per rimuovere le righe specificate
-    $requests = [
-        new Google\Service\Docs\Request([
-            'deleteContentRange' => [
-                'range' => [
-                    'startIndex' => $startIndex,
-                    'endIndex' => $endIndex
-                ]
-            ]
-        ])
-    ];
-
-    // Esegui la richiesta di aggiornamento
-    $batchUpdateRequest = new Google\Service\Docs\BatchUpdateDocumentRequest([
-        'requests' => $requests
-    ]);
-    $service->documents->batchUpdate($documentId, $batchUpdateRequest);
-    
-    exit();
-}
 
 //RICORDATI DI CAMBIARE QUESTO
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     handlePostRequest();
-} else {
-    echo json_encode(['error' => 'Accedi a questa pagina solo tramite richieste POST.']);
-}
+//} else {
+//    echo json_encode(['error' => 'Accedi a questa pagina solo tramite richieste POST.']);
+//}
 ?>

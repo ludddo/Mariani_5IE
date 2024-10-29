@@ -1,4 +1,29 @@
+function validateStep(step) {
+    const stepElement = document.getElementById(`step-${step}`);
+    const inputs = stepElement.querySelectorAll('input[type="radio"]');
+    let isValid = false;
+
+    inputs.forEach(input => {
+        if (input.checked) {
+            isValid = true;
+        }
+    });
+
+    if (!isValid) {
+        alert("Per favore, seleziona una risposta prima di procedere.");
+    }
+
+    return isValid;
+}
+
 function nextStep(step) {
+    
+    if (step != 8 && step != 9) 
+    {
+        if (!validateStep(step)) {
+            return;  // Interrompi l'avanzamento se la validazione fallisce
+        }
+    }
     // Collect form data at each step
     saveFormData();
 
@@ -11,8 +36,9 @@ function nextStep(step) {
         const step5 = document.querySelector('input[name="carry"]:checked').value;
 
         if (step1 === "no" && step2 === "no" && step3 === "no" && step4 === "no" && step5 === "no") {
-            alert("Devi rispondere Sì ad almeno una domanda tra gli Step 1 e Step 5 per continuare.");
-            redirectToResult();
+            if (confirm("Devi rispondere Sì ad almeno una domanda tra gli Step 1 e Step 5 per continuare. Sei sicuro di voler terminare il questionario?")) {
+                redirectToResult();
+            }
             return;  // Interrompi l'avanzamento
         }
     }
@@ -20,8 +46,9 @@ function nextStep(step) {
     if (step === 6) {
         const step6 = document.querySelector('input[name="weight"]:checked').value;
         if (step6 === "no") {
-            alert("Devi rispondere Sì allo Step 6 per continuare.");
-            redirectToResult();
+            if (confirm("Devi rispondere Sì allo Step 6 per continuare. Sei sicuro di voler terminare il questionario?")) {
+                redirectToResult();
+            }
             return;  // Interrompi l'avanzamento
         }
     }
@@ -29,8 +56,9 @@ function nextStep(step) {
     if (step === 7) {
         const step7 = document.querySelector('input[name="mechanical"]:checked').value;
         if (step7 === "yes") {
-            alert("Devi rispondere No allo Step 7 per continuare.");
-            redirectToResult();
+            if (confirm("Devi rispondere No allo Step 7 per continuare. Sei sicuro di voler terminare il questionario?")) {
+                redirectToResult();
+            }
             return;  // Interrompi l'avanzamento
         }
     }
@@ -52,8 +80,9 @@ function nextStep(step) {
         }
 
         if (!answeredNo) {
-            alert("Devi rispondere No ad almeno una domanda tra gli Step 10 e Step 24 per continuare.");
-            redirectToResult();
+            if (confirm("Devi rispondere No ad almeno una domanda tra gli Step 10 e Step 24 per continuare. Sei sicuro di voler terminare il questionario?")) {
+                redirectToResult();
+            }
             return;  // Interrompi l'avanzamento
         }
     }
@@ -74,8 +103,9 @@ function nextStep(step) {
         }
 
         if (!answeredYes) {
-            alert("Devi rispondere Sì ad almeno una domanda tra gli Step 25 e Step 31 per continuare.");
-            redirectToResult();
+            if (confirm("Devi rispondere Sì ad almeno una domanda tra gli Step 25 e Step 31 per continuare. Sei sicuro di voler terminare il questionario?")) {
+                redirectToResult();
+            }
             return;  // Interrompi l'avanzamento
         }
     }
@@ -326,7 +356,7 @@ function calculateNioshScore(altezza, distanzaVerticale, distanzaOrizzontale, an
     }
 
     if (gesto == "si") {
-        gestoFattore = 0,60;
+        gestoFattore = 0.60;
     } else {
         gestoFattore = 1;
     }
@@ -337,7 +367,11 @@ function calculateNioshScore(altezza, distanzaVerticale, distanzaOrizzontale, an
         operatoriFattore = 0.85;
     }
 
-    // Calcola il punteggio NIOSH
+    //fai un alert con tutto anche per debug anche non fattori
+    alert("Altezza: " + altezza + "\nDistanza Verticale: " + distanzaVerticale + "\nDistanza Orizzontale: " + distanzaOrizzontale + "\nAngolo: " + angolo + "\nPresa: " + presa + "\nFrequenza: " + frequenza + "\nNumero Gesti: " + numeroGesti + "\nGesto: " + gesto + "\nOperatori: " + operatori + "\n\nAltezza Fattore: " + altezzaFattore + "\nDistanza Verticale Fattore: " + distanzaVerticaleFattore + "\nDistanza Orizzontale Fattore: " + distanzaOrizzontaleFattore + "\nAngolo Fattore: " + angoloFattore + "\nPresa Fattore: " + presaFattore + "\nFrequenza Fattore: " + frequenzaFattore + "\nGesto Fattore: " + gestoFattore + "\nOperatori Fattore: " + operatoriFattore);
+
+
+    // Calcola il punteggio NIOSH peso limite
     const nioshScore = 20 * altezzaFattore * distanzaVerticaleFattore * distanzaOrizzontaleFattore * angoloFattore * presaFattore * frequenzaFattore * gestoFattore * operatoriFattore;
 
     return nioshScore;
@@ -358,5 +392,4 @@ document.getElementById("multiStepForm").addEventListener("submit", function(eve
     const formData = collectFormData(); // Collect form data including NIOSH score
     localStorage.setItem('formData', JSON.stringify(formData)); // Save form data to localStorage
     redirectToResult();
-    alert("Le risposte sono state salvate in un file JSON.");
 });

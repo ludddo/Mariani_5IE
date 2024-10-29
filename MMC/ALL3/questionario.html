@@ -22,30 +22,31 @@
                         <h2 class="text-warning">Domanda 1</h2>
                         <div class="mb-3">
                             <label class="form-label">L’attività consiste nel sollevare un carico?</label>
-                            <div>
-                                <input type="radio" id="liftYes" name="lift" value="yes" required>
-                                <label for="liftYes">Sì</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="liftYes" name="lift" value="yes" required>
+                                <label class="form-check-label" for="liftYes">Sì</label>
                             </div>
-                            <div>
-                                <input type="radio" id="liftNo" name="lift" value="no">
-                                <label for="liftNo">No</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="liftNo" name="lift" value="no">
+                                <label class="form-check-label" for="liftNo">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-primary next-btn" onclick="nextStep(1)">Avanti</button>
                     </div>
+
 
                     <!-- Step 2 -->
                     <div class="step" id="step-2">
                         <h2 class="text-warning">Domanda 2</h2>
                         <div class="mb-3">
                             <label class="form-label">L’attività consiste nel deporre un carico?</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="depositYes" name="deposit" value="yes" required>
+                                <label class="form-check-label" for="depositYes">Sì</label>
+                            </div class="form-check">
                             <div>
-                                <input type="radio" id="depositYes" name="deposit" value="yes" required>
-                                <label for="depositYes">Sì</label>
-                            </div>
-                            <div>
-                                <input type="radio" id="depositNo" name="deposit" value="no">
-                                <label for="depositNo">No</label>
+                                <input class="form-check-input" type="radio" id="depositNo" name="deposit" value="no">
+                                <label class="form-check-label" for="depositNo">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(2)">Indietro</button>
@@ -57,13 +58,13 @@
                         <h2 class="text-warning">Domanda 3</h2>
                         <div class="mb-3">
                             <label class="form-label">L’attività consiste nello spingere un carico?</label>
-                            <div>
-                                <input type="radio" id="pushYes" name="push" value="yes" required>
-                                <label for="pushYes">Sì</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="pushYes" name="push" value="yes" required>
+                                <label class="form-check-label" for="pushYes">Sì</label>
                             </div>
-                            <div>
-                                <input type="radio" id="pushNo" name="push" value="no">
-                                <label for="pushNo">No</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="pushNo" name="push" value="no">
+                                <label class="form-check-label" for="pushNo">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(3)">Indietro</button>
@@ -75,13 +76,13 @@
                         <h2 class="text-warning">Domanda 4</h2>
                         <div class="mb-3">
                             <label class="form-label">L’attività consiste nel tirare un carico?</label>
-                            <div>
-                                <input type="radio" id="pullYes" name="pull" value="yes" required>
-                                <label for="pullYes">Sì</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="pullYes" name="pull" value="yes" required>
+                                <label class="form-check-label" for="pullYes">Sì</label>
                             </div>
-                            <div>
-                                <input type="radio" id="pullNo" name="pull" value="no">
-                                <label for="pullNo">No</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="pullNo" name="pull" value="no">
+                                <label class="form-check-label" for="pullNo">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(4)">Indietro</button>
@@ -93,13 +94,13 @@
                         <h2 class="text-warning">Domanda 5</h2>
                         <div class="mb-3">
                             <label class="form-label">L’attività consiste nel portare o spostare un carico?</label>
-                            <div>
-                                <input type="radio" id="carryYes" name="carry" value="yes" required>
-                                <label for="carryYes">Sì</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="carryYes" name="carry" value="yes" required>
+                                <label class="form-check-label" for="carryYes">Sì</label>
                             </div>
-                            <div>
-                                <input type="radio" id="carryNo" name="carry" value="no">
-                                <label for="carryNo">No</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="carryNo" name="carry" value="no">
+                                <label class="form-check-label" for="carryNo">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(5)">Indietro</button>
@@ -111,13 +112,13 @@
                         <h2 class="text-warning">Domanda 6</h2>
                         <div class="mb-3">
                             <label class="form-label">Presenza di oggetti di peso superiore o uguale a 3 kg da sollevare manualmente, almeno una volta all’ora?</label>
-                            <div>
-                                <input type="radio" id="weightYes" name="weight" value="yes" required>
-                                <label for="weightYes">Sì</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="weightYes" name="weight" value="yes" required>
+                                <label class="form-check-label" for="weightYes">Sì</label>
                             </div>
-                            <div>
-                                <input type="radio" id="weightNo" name="weight" value="no">
-                                <label for="weightNo">No</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="weightNo" name="weight" value="no">
+                                <label class="form-check-label" for="weightNo">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(6)">Indietro</button>
@@ -129,13 +130,13 @@
                         <h2 class="text-warning">Domanda 7</h2>
                         <div class="mb-3">
                             <label class="form-label">Possibilità di evitare la movimentazione manuale dei carichi con attrezzature meccaniche o ausili?</label>
-                            <div>
-                                <input type="radio" id="mechanicalYes" name="mechanical" value="yes" required>
-                                <label for="mechanicalYes">Sì</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="mechanicalYes" name="mechanical" value="yes" required>
+                                <label class="form-check-label" for="mechanicalYes">Sì</label>
                             </div>
-                            <div>
-                                <input type="radio" id="mechanicalNo" name="mechanical" value="no">
-                                <label for="mechanicalNo">No</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="mechanicalNo" name="mechanical" value="no">
+                                <label class="form-check-label" for="mechanicalNo">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(7)">Indietro</button>
@@ -167,13 +168,13 @@
                         <h2 class="text-warning">Domanda 10</h2>
                         <div class="mb-3">
                             <label class="form-label">C’è una buona interfaccia tra piedi e pavimenti?</label>
-                            <div>
-                                <input type="radio" id="pavementYes" name="pavement" value="yes" required>
-                                <label for="pavementYes">Sì</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="pavementYes" name="pavement" value="yes" required>
+                                <label class="form-check-label" for="pavementYes">Sì</label>
                             </div>
-                            <div>
-                                <input type="radio" id="pavementNo" name="pavement" value="no">
-                                <label for="pavementNo">No</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="pavementNo" name="pavement" value="no">
+                                <label class="form-check-label" for="pavementNo">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(10)">Indietro</button>
@@ -185,13 +186,13 @@
                         <h2 class="text-warning">Domanda 11</h2>
                         <div class="mb-3">
                             <label class="form-label">Le attività di movimentazione manuale diverse dal sollevamento sono minime e gli oggetti non sono molto freddi, caldi o contaminati?</label>
-                            <div>
-                                <input type="radio" id="minimalHandlingYes" name="minimalHandling" value="yes" required>
-                                <label for="minimalHandlingYes">Sì</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="minimalHandlingYes" name="minimalHandling" value="yes" required>
+                                <label class="form-check-label" for="minimalHandlingYes">Sì</label>
                             </div>
-                            <div>
-                                <input type="radio" id="minimalHandlingNo" name="minimalHandling" value="no">
-                                <label for="minimalHandlingNo">No</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="minimalHandlingNo" name="minimalHandling" value="no">
+                                <label class="form-check-label" for="minimalHandlingNo">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(11)">Indietro</button>
@@ -203,13 +204,13 @@
                         <h2 class="text-warning">Domanda 12</h2>
                         <div class="mb-3">
                             <label class="form-label">L’ambiente termico è moderato (19-26°C, umidità 30-60%, velocità aria &lt; 0,2 m/s) secondo EN ISO 7730?</label>
-                            <div>
-                                <input type="radio" id="thermalEnvYes" name="thermalEnv" value="yes" required>
-                                <label for="thermalEnvYes">Sì</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="thermalEnvYes" name="thermalEnv" value="yes" required>
+                                <label class="form-check-label" for="thermalEnvYes">Sì</label>
                             </div>
-                            <div>
-                                <input type="radio" id="thermalEnvNo" name="thermalEnv" value="no">
-                                <label for="thermalEnvNo">No</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="thermalEnvNo" name="thermalEnv" value="no">
+                                <label class="form-check-label" for="thermalEnvNo">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(12)">Indietro</button>
@@ -221,13 +222,13 @@
                         <h2 class="text-warning">Domanda 13</h2>
                         <div class="mb-3">
                             <label class="form-label">L'operazione può essere eseguita utilizzando solo due mani?</label>
-                            <div>
-                                <input type="radio" id="twoHandsYes" name="twoHands" value="yes" required>
-                                <label for="twoHandsYes">Sì</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="twoHandsYes" name="twoHands" value="yes" required>
+                                <label class="form-check-label" for="twoHandsYes">Sì</label>
                             </div>
-                            <div>
-                                <input type="radio" id="twoHandsNo" name="twoHands" value="no">
-                                <label for="twoHandsNo">No</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="twoHandsNo" name="twoHands" value="no">
+                                <label class="form-check-label" for="twoHandsNo">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(13)">Indietro</button>
@@ -239,13 +240,13 @@
                         <h2 class="text-warning">Domanda 14</h2>
                         <div class="mb-3">
                             <label class="form-label">C'è una buona interfaccia tra piedi e pavimenti?</label>
-                            <div>
-                                <input type="radio" id="pavementYes" name="pavement" value="yes" required>
-                                <label for="pavementYes">Sì</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="pavementYes" name="pavement" value="yes" required>
+                                <label class="form-check-label" for="pavementYes">Sì</label>
                             </div>
-                            <div>
-                                <input type="radio" id="twoHandsNo" name="pavement" value="no">
-                                <label for="pavementNo">No</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="twoHandsNo" name="pavement" value="no">
+                                <label class="form-check-label" for="pavementNo">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(14)">Indietro</button>
@@ -258,13 +259,13 @@
                         <h2 class="text-warning">Domanda 15</h2>
                         <div class="mb-3">
                             <label class="form-label">La postura è eretta e i movimenti non sono limitati?</label>
-                            <div>
-                                <input type="radio" id="postureYes" name="posture" value="yes" required>
-                                <label for="postureYes">Sì</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="postureYes" name="posture" value="yes" required>
+                                <label class="form-check-label" for="postureYes">Sì</label>
                             </div>
-                            <div>
-                                <input type="radio" id="postureNo" name="posture" value="no">
-                                <label for="postureNo">No</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="postureNo" name="posture" value="no">
+                                <label class="form-check-label" for="postureNo">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(15)">Indietro</button>
@@ -276,13 +277,13 @@
                         <h2 class="text-warning">Domanda 16</h2>
                         <div class="mb-3">
                             <label class="form-label">Le attività di movimentazione manuale diverse dal sollevamento sono minime e gli oggetti da sollevare non sono molto freddi, molto caldi o contaminati? </label>
-                            <div>
-                                <input type="radio" id="postureYes" name="posture" value="yes" required>
-                                <label for="postureYes">Sì</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="postureYes" name="posture" value="yes" required>
+                                <label class="form-check-label" for="postureYes">Sì</label>
                             </div>
-                            <div>
-                                <input type="radio" id="postureNo" name="posture" value="no">
-                                <label for="postureNo">No</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="postureNo" name="posture" value="no">
+                                <label class="form-check-label" for="postureNo">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(16)">Indietro</button>
@@ -295,13 +296,13 @@
                         <h2 class="text-warning">Domanda 17</h2>
                         <div class="mb-3">
                             <label class="form-label">La movimentazione avviene da parte di un'unica persona?</label>
-                            <div>
-                                <input type="radio" id="onePersonYes" name="onePerson" value="yes" required>
-                                <label for="onePersonYes">Sì</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="onePersonYes" name="onePerson" value="yes" required>
+                                <label class="form-check-label" for="onePersonYes">Sì</label>
                             </div>
-                            <div>
-                                <input type="radio" id="onePersonNo" name="onePerson" value="no">
-                                <label for="onePersonNo">No</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="onePersonNo" name="onePerson" value="no">
+                                <label class="form-check-label" for="onePersonNo">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(17)">Indietro</button>
@@ -313,13 +314,13 @@
                         <h2 class="text-warning">Domanda 18</h2>
                         <div class="mb-3">
                             <label class="form-label">Il sollevamento è graduale?</label>
-                            <div>
-                                <input type="radio" id="gradualLiftYes" name="gradualLift" value="yes" required>
-                                <label for="gradualLiftYes">Sì</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="gradualLiftYes" name="gradualLift" value="yes" required>
+                                <label class="form-check-label" for="gradualLiftYes">Sì</label>
                             </div>
-                            <div>
-                                <input type="radio" id="gradualLiftNo" name="gradualLift" value="no">
-                                <label for="gradualLiftNo">No</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="gradualLiftNo" name="gradualLift" value="no">
+                                <label class="form-check-label" for="gradualLiftNo">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(18)">Indietro</button>
@@ -333,13 +334,13 @@
                         <h2 class="text-warning">Domanda 19</h2>
                         <div class="mb-3">
                             <label class="form-label">L'ambiente termico è moderato (per ambiente termico moderato si intende un ambiente in cui vi sia una temperatura tra i 19 e i 26°C, con umidità relativa tra il 30% ed il 60% e velocità dell'aria &lt;0,2 m/s) secondo EN ISO 7730?</label>
-                            <div>
-                                <input type="radio" id="thermalEnvModerateYes" name="thermalEnvModerate" value="yes" required>
-                                <label for="thermalEnvModerateYes">Sì</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="thermalEnvModerateYes" name="thermalEnvModerate" value="yes" required>
+                                <label class="form-check-label" for="thermalEnvModerateYes">Sì</label>
                             </div>
-                            <div>
-                                <input type="radio" id="thermalEnvModerateNo" name="thermalEnvModerate" value="no">
-                                <label for="thermalEnvModerateNo">No</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="thermalEnvModerateNo" name="thermalEnvModerate" value="no">
+                                <label class="form-check-label" for="thermalEnvModerateNo">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(19)">Indietro</button>
@@ -351,13 +352,13 @@
                         <h2 class="text-warning">Domanda 20</h2>
                         <div class="mb-3">
                             <label class="form-label">Il peso movimentato è compreso tra 5,1-10,5 Kg, viene spostato in verticale nella zona compresa tra le anche e le spalle, per una volta ogni 5 minuti?</label>
-                            <div>
-                                <input type="radio" id="weight5to10Yes" name="weight5to10" value="yes" required>
-                                <label for="weight5to10Yes">Sì</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="weight5to10Yes" name="weight5to10" value="yes" required>
+                                <label class="form-check-label" for="weight5to10Yes">Sì</label>
                             </div>
-                            <div>
-                                <input type="radio" id="weight5to10No" name="weight5to10" value="no">
-                                <label for="weight5to10No">No</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="weight5to10No" name="weight5to10" value="no">
+                                <label class="form-check-label" for="weight5to10No">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(20)">Indietro</button>
@@ -369,13 +370,13 @@
                         <h2 class="text-warning">Domanda 21</h2>
                         <div class="mb-3">
                             <label class="form-label">La movimentazione avviene a tronco eretto e non ruotato?</label>
-                            <div>
-                                <input type="radio" id="uprightYes" name="upright" value="yes" required>
-                                <label for="uprightYes">Sì</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="uprightYes" name="upright" value="yes" required>
+                                <label class="form-check-label" for="uprightYes">Sì</label>
                             </div>
-                            <div>
-                                <input type="radio" id="uprightNo" name="upright" value="no">
-                                <label for="uprightNo">No</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="uprightNo" name="upright" value="no">
+                                <label class="form-check-label" for="uprightNo">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(21)">Indietro</button>
@@ -387,13 +388,13 @@
                         <h2 class="text-warning">Domanda 22</h2>
                         <div class="mb-3">
                             <label class="form-label">Durante la movimentazione il carico è tenuto vicino al corpo?</label>
-                            <div>
-                                <input type="radio" id="closeToBodyYes" name="closeToBody" value="yes" required>
-                                <label for="closeToBodyYes">Sì</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="closeToBodyYes" name="closeToBody" value="yes" required>
+                                <label class="form-check-label" for="closeToBodyYes">Sì</label>
                             </div>
-                            <div>
-                                <input type="radio" id="closeToBodyNo" name="closeToBody" value="no">
-                                <label for="closeToBodyNo">No</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="closeToBodyNo" name="closeToBody" value="no">
+                                <label class="form-check-label" for="closeToBodyNo">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(22)">Indietro</button>
@@ -405,13 +406,13 @@
                         <h2 class="text-warning">Domanda 23</h2>
                         <div class="mb-3">
                             <label class="form-label">Il peso movimentato è compreso tra 3-5 Kg, viene spostato in verticale nella zona compresa tra le anche e le spalle, per una frequenza massima di 1 volta al minuto?</label>
-                            <div>
-                                <input type="radio" id="weight3to5Yes" name="weight3to5" value="yes" required>
-                                <label for="weight3to5Yes">Sì</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="weight3to5Yes" name="weight3to5" value="yes" required>
+                                <label class="form-check-label" for="weight3to5Yes">Sì</label>
                             </div>
-                            <div>
-                                <input type="radio" id="weight3to5No" name="weight3to5" value="no">
-                                <label for="weight3to5No">No</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="weight3to5No" name="weight3to5" value="no">
+                                <label class="form-check-label" for="weight3to5No">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(23)">Indietro</button>
@@ -423,13 +424,13 @@
                         <h2 class="text-warning">Domanda 24</h2>
                         <div class="mb-3">
                             <label class="form-label">Distanza verticale (altezza da terra all'inizio presa) > 175 cm?</label>
-                            <div>
-                                <input type="radio" id="verticalDistanceYes" name="verticalDistance" value="yes" required>
-                                <label for="verticalDistanceYes">Sì</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="verticalDistanceYes" name="verticalDistance" value="yes" required>
+                                <label class="form-check-label" for="verticalDistanceYes">Sì</label>
                             </div>
-                            <div>
-                                <input type="radio" id="verticalDistanceNo" name="verticalDistance" value="no">
-                                <label for="verticalDistanceNo">No</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="verticalDistanceNo" name="verticalDistance" value="no">
+                                <label class="form-check-label" for="verticalDistanceNo">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(24)">Indietro</button>
@@ -441,13 +442,13 @@
                         <h2 class="text-warning">Domanda 25</h2>
                         <div class="mb-3">
                             <label class="form-label">Dislocazione verticale (spostamento verticale del peso dall'inizio alla fine del movimento) > 175 cm?</label>
-                            <div>
-                                <input type="radio" id="verticalDislocationYes" name="verticalDislocation" value="yes" required>
-                                <label for="verticalDislocationYes">Sì</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="verticalDislocationYes" name="verticalDislocation" value="yes" required>
+                                <label class="form-check-label" for="verticalDislocationYes">Sì</label>
                             </div>
-                            <div>
-                                <input type="radio" id="verticalDislocationNo" name="verticalDislocation" value="no">
-                                <label for="verticalDislocationNo">No</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="verticalDislocationNo" name="verticalDislocation" value="no">
+                                <label class="form-check-label" for="verticalDislocationNo">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(25)">Indietro</button>
@@ -459,13 +460,13 @@
                         <h2 class="text-warning">Domanda 26</h2>
                         <div class="mb-3">
                             <label class="form-label">Distanza orizzontale del peso dal corpo > 63 cm?</label>
-                            <div>
-                                <input type="radio" id="horizontalDistanceYes" name="horizontalDistance" value="yes" required>
-                                <label for="horizontalDistanceYes">Sì</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="horizontalDistanceYes" name="horizontalDistance" value="yes" required>
+                                <label class="form-check-label" for="horizontalDistanceYes">Sì</label>
                             </div>
-                            <div>
-                                <input type="radio" id="horizontalDistanceNo" name="horizontalDistance" value="no">
-                                <label for="horizontalDistanceNo">No</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="horizontalDistanceNo" name="horizontalDistance" value="no">
+                                <label class="form-check-label" for="horizontalDistanceNo">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(26)">Indietro</button>
@@ -477,13 +478,13 @@
                         <h2 class="text-warning">Domanda 28</h2>
                         <div class="mb-3">
                             <label class="form-label">Rotazione del tronco > 135 gradi?</label>
-                            <div>
-                                <input type="radio" id="trunkRotationYes" name="trunkRotation" value="yes" required>
-                                <label for="trunkRotationYes">Sì</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="trunkRotationYes" name="trunkRotation" value="yes" required>
+                                <label class="form-check-label" for="trunkRotationYes">Sì</label>
                             </div>
-                            <div>
-                                <input type="radio" id="trunkRotationNo" name="trunkRotation" value="no">
-                                <label for="trunkRotationNo">No</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="trunkRotationNo" name="trunkRotation" value="no">
+                                <label class="form-check-label" for="trunkRotationNo">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(27)">Indietro</button>
@@ -495,37 +496,37 @@
                         <h2 class="text-warning">Domanda 28</h2>
                         <div class="mb-3">
                             <label class="form-label">Frequenza di sollevamento in base al tempo dedicato alla movimentazione carichi:</label>
-                            <div>
+                            <div class="form-check">
                                 <label class="form-label">N. sollevamenti superiori o uguali a 13/minuto, tempo dedicato inferiore ad un'ora?</label>
                                 <div>
-                                    <input type="radio" id="lifting13minYes" name="lifting13min" value="yes" required>
-                                    <label for="lifting13minYes">Sì</label>
+                                    <input class="form-check-input" type="radio" id="lifting13minYes" name="lifting13min" value="yes" required>
+                                    <label class="form-check-label" for="lifting13minYes">Sì</label>
                                 </div>
                                 <div>
-                                    <input type="radio" id="lifting13minNo" name="lifting13min" value="no">
-                                    <label for="lifting13minNo">No</label>
+                                    <input class="form-check-input" type="radio" id="lifting13minNo" name="lifting13min" value="no">
+                                    <label class="form-check-label" for="lifting13minNo">No</label>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">N. sollevamenti superiori o uguali a 11/minuto, tempo dedicato inferiore 1-2 ore?</label>
                                 <div>
-                                    <input type="radio" id="lifting11minYes" name="lifting11min" value="yes" required>
-                                    <label for="lifting11minYes">Sì</label>
+                                    <input class="form-check-input" type="radio" id="lifting11minYes" name="lifting11min" value="yes" required>
+                                    <label class="form-check-label" for="lifting11minYes">Sì</label>
                                 </div>
                                 <div>
-                                    <input type="radio" id="lifting11minNo" name="lifting11min" value="no">
-                                    <label for="lifting11minNo">No</label>
+                                    <input class="form-check-input" type="radio" id="lifting11minNo" name="lifting11min" value="no">
+                                    <label class="form-check-label" for="lifting11minNo">No</label>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">N. sollevamenti superiori o uguali a 9/minuto, tempo dedicato superiore a 2 ore?</label>
                                 <div>
-                                    <input type="radio" id="lifting9minYes" name="lifting9min" value="yes" required>
-                                    <label for="lifting9minYes">Sì</label>
+                                    <input class="form-check-input" type="radio" id="lifting9minYes" name="lifting9min" value="yes" required>
+                                    <label class="form-check-label" for="lifting9minYes">Sì</label>
                                 </div>
                                 <div>
-                                    <input type="radio" id="lifting9minNo" name="lifting9min" value="no">
-                                    <label for="lifting9minNo">No</label>
+                                    <input class="form-check-input" type="radio" id="lifting9minNo" name="lifting9min" value="no">
+                                    <label class="form-check-label" for="lifting9minNo">No</label>
                                 </div>
                             </div>
                         </div>
@@ -538,13 +539,13 @@
                         <h2 class="text-warning">Domanda 29</h2>
                         <div class="mb-3">
                             <label class="form-label">Presenza di pesi maggiori a 25 Kg per l'uomo e 20 Kg per la donna? (di età compresa tra i 18 e i 45 anni)</label>
-                            <div>
-                                <input type="radio" id="weightOver25Yes" name="weightOver25" value="yes" required>
-                                <label for="weightOver25Yes">Sì</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="weightOver25Yes" name="weightOver25" value="yes" required>
+                                <label class="form-check-label" for="weightOver25Yes">Sì</label>
                             </div>
-                            <div>
-                                <input type="radio" id="weightOver25No" name="weightOver25" value="no">
-                                <label for="weightOver25No">No</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="weightOver25No" name="weightOver25" value="no">
+                                <label class="form-check-label" for="weightOver25No">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(29)">Indietro</button>
@@ -556,13 +557,13 @@
                         <h2 class="text-warning">Domanda 30</h2>
                         <div class="mb-3">
                             <label class="form-label">Presenza di pesi maggiori a 20 Kg per l'uomo e 15 Kg per la donna? (di età inferiore ai 18 e superiore ai 45 anni)</label>
-                            <div>
-                                <input type="radio" id="weightOver20Yes" name="weightOver20" value="yes" required>
-                                <label for="weightOver20Yes">Sì</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="weightOver20Yes" name="weightOver20" value="yes" required>
+                                <label class="form-check-label" for="weightOver20Yes">Sì</label>
                             </div>
-                            <div>
-                                <input type="radio" id="weightOver20No" name="weightOver20" value="no">
-                                <label for="weightOver20No">No</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="weightOver20No" name="weightOver20" value="no">
+                                <label class="form-check-label" for="weightOver20No">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(30)">Indietro</button>
@@ -574,13 +575,13 @@
                         <h2 class="text-warning">Domanda 31</h2>
                         <div class="mb-3">
                             <label class="form-label">Sono state fornite ai lavoratori le informazioni adeguate relativamente al peso ed alle altre caratteristiche del carico movimentato?</label>
-                            <div>
-                                <input type="radio" id="infoProvidedYes" name="infoProvided" value="yes" required>
-                                <label for="infoProvidedYes">Sì</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="infoProvidedYes" name="infoProvided" value="yes" required>
+                                <label class="form-check-label" for="infoProvidedYes">Sì</label>
                             </div>
-                            <div>
-                                <input type="radio" id="infoProvidedNo" name="infoProvided" value="no">
-                                <label for="infoProvidedNo">No</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="infoProvidedNo" name="infoProvided" value="no">
+                                <label class="form-check-label" for="infoProvidedNo">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(31)">Indietro</button>
@@ -592,13 +593,13 @@
                         <h2 class="text-warning">Domanda 32</h2>
                         <div class="mb-3">
                             <label class="form-label">È stata fornita formazione adeguata ai lavoratori in relazione ai rischi lavorativi ed alle modalità di corretta esecuzione delle attività?</label>
-                            <div>
-                                <input type="radio" id="trainingProvidedYes" name="trainingProvided" value="yes" required>
-                                <label for="trainingProvidedYes">Sì</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="trainingProvidedYes" name="trainingProvided" value="yes" required>
+                                <label class="form-check-label" for="trainingProvidedYes">Sì</label>
                             </div>
-                            <div>
-                                <input type="radio" id="trainingProvidedNo" name="trainingProvided" value="no">
-                                <label for="trainingProvidedNo">No</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="trainingProvidedNo" name="trainingProvided" value="no">
+                                <label class="form-check-label" for="trainingProvidedNo">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(32)">Indietro</button>
@@ -610,13 +611,13 @@
                         <h2 class="text-warning">Domanda 33</h2>
                         <div class="mb-3">
                             <label class="form-label">È stato fornito ai lavoratori l’addestramento adeguato in merito alle corrette manovre e procedure da adottare nella movimentazione manuale dei carichi?</label>
-                            <div>
-                                <input type="radio" id="trainingManualYes" name="trainingManual" value="yes" required>
-                                <label for="trainingManualYes">Sì</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="trainingManualYes" name="trainingManual" value="yes" required>
+                                <label class="form-check-label" for="trainingManualYes">Sì</label>
                             </div>
-                            <div>
-                                <input type="radio" id="trainingManualNo" name="trainingManual" value="no">
-                                <label for="trainingManualNo">No</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="trainingManualNo" name="trainingManual" value="no">
+                                <label class="form-check-label" for="trainingManualNo">No</label>
                             </div>
                         </div>
                         <button type="button" class="btn btn-secondary prev-btn" onclick="prevStep(33)">Indietro</button>
@@ -633,6 +634,9 @@
                         <!-- Domanda 1 -->
                         <div class="form-group">
                             <label for="altezza">Altezza da terra delle mani all'inizio (o alla fine) del sollevamento (cm)</label>
+                            <div class="image-container">
+                                <img src="img/img1.png" alt="Descrizione immagine 1" class="img-fluid">
+                            </div>
                             <input type="number" class="form-control" id="altezza" name="altezza" required>
                         </div>
 

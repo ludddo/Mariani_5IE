@@ -31,13 +31,13 @@
   "trainingManual": "no",
   "dynamicData": [
     {
-      "description": "asd",
-      "num_objects": "1",
-      "num_lifts": "1",
-      "weight": "30",
-      "duration": "1",
-      "workers": "1"
+      "description": "123",
+      "num_objects": "123",
+      "num_lifts": "123",
+      "weight": "123",
+      "duration": "123",
+      "workers": "123"
     }
   ],
-  "nioshScore": 4.8048
+  "nioshScore": 1
 }
