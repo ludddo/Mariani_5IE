@@ -10,6 +10,7 @@ body, html {
 .card {
     background-color: #3C3D37; /* Colore di sfondo del contenitore principale */
     border: none;
+    border-radius: 15px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Ombra del contenitore */
 }
 
@@ -81,4 +82,32 @@ h1, h2 {
 #error-message {
     color: #f25f5c; /* Colore del messaggio di errore */
     font-size: 1.1em;
+}
+
+/* Spinner */
+.spinner-border {
+    display: none;
+    width: 3rem;
+    height: 3rem;
+    margin-top: 20px;
+}
+
+/* File input button */
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-file input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
 }
