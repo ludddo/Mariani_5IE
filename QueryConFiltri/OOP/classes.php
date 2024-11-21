@@ -1,12 +1,16 @@
 <?php
+
+
+
 class Query {
     private $sql;
     private $conn;
     private $statement;
 
     public function __construct() {
+        require "../db.php";
         try {
-            $this->conn = new PDO("mysql:host=localhost;dbname=interrogazioni", "root", "");
+            $this->conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->sql = "SELECT * FROM valutazioni WHERE 1=1";
         } catch(PDOException $e) {
