@@ -1,10 +1,11 @@
 <?php
 require "classes.php";
+require "../db.php";
 
-$query = new Query();
+$query = new Query($servername, $dbname, $username, $password);
 $risultati = $query->get_voto()
-                  ->get_data()
-                  ->esegui();
+                   ->get_data()
+                   ->esegui();
 ?>
 
 <!DOCTYPE html>

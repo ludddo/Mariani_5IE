@@ -6,9 +6,10 @@ class Query {
     private $sql;
     private $conn;
     private $statement;
+    
 
-    public function __construct() {
-        require "../db.php";
+    public function __construct($servername, $dbname, $username, $password) {
+        
         try {
             $this->conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
