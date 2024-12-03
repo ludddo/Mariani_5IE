@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestione Interrogazioni</title>
+</head>
+<body>
+    <h1>Gestione Interrogazioni</h1>
+    
+    <!-- Form per le interrogazioni di un alunno -->
+    <h2>Interrogazioni di un Alunno</h2>
+    <form action="query.php" method="GET">
+        <label for="alunno">Nome Alunno:</label>
+        <input type="text" name="alunno" id="alunno" required>
+        <button type="submit" name="query" value="1">Cerca</button>
+    </form>
+    
+    <!-- Form per le interrogazioni di un alunno in una materia -->
+    <h2>Interrogazioni di un Alunno in una Materia</h2>
+    <form action="query.php" method="GET">
+        <label for="alunnoMateria">Nome Alunno:</label>
+        <input type="text" name="alunnoMateria" id="alunnoMateria" required>
+        <label for="materia">Materia:</label>
+        <input type="text" name="materia" id="materia" required>
+        <button type="submit" name="query" value="2">Cerca</button>
+    </form>
+    
+    <!-- Form per tutte le materie con interrogazioni -->
+    <h2>Tutte le Materie con Interrogazioni</h2>
+    <form action="query.php" method="GET">
+        <button type="submit" name="query" value="3">Cerca</button>
+    </form>
+</body>
+</html>
