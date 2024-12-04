@@ -102,44 +102,111 @@
     // POST /artista
     if ((strtolower($richiesta[3]) == "artista") && $method == "POST")
     {
-        $body = json_decode(file_get_contents("php://input"));
-        $nome = $body->nome;
-        $cognome = $body->cognome;
-        $immagine = $body->immagine;
-        $query = "INSERT INTO `MUSICA_artisti` (Nome, Cognome, Immagine) VALUES ('$nome', '$cognome', '$immagine')";
-        $mysqli->query($query);
-        if($mysqli->connect_errno)
-        {
-            http_response_code(500);
-            $risp = new stdClass();
-            $risp->errorCode = 500;
-            $risp->errorMessage = "Connessione fallita: ".$mysqli->connect_error;
-            die(json_encode($risp));
+        $nome = $_POST['nome'];
+        $cognome = $_POST['cognome'];
+        
+        // Gestione dell'upload dell'immagine
+        if (isset($_FILES['immagine']) && $_FILES['immagine']['error'] == UPLOAD_ERR_OK) {
+            $immagine = $_FILES['immagine']['name'];
+            $target_dir = "img/";
+            $target_file = $target_dir . basename($immagine);
+            
+            // Controlla se il file è un'immagine
+            $check = getimagesize($_FILES['immagine']['tmp_name']);
+            if($check !== false) {
+                // Salva l'immagine nella directory target
+                if (move_uploaded_file($_FILES['immagine']['tmp_name'], $target_file)) {
+                    // Inserisci i dati nel database con il percorso dell'immagine
+                    $query = "INSERT INTO `MUSICA_artisti` (Nome, Cognome, Immagine) VALUES ('$nome', '$cognome', '$immagine')";
+                    $mysqli->query($query);
+                    if($mysqli->connect_errno)
+                    {
+                        http_response_code(500);
+                        $risp = new stdClass();
+                        $risp->errorCode = 500;
+                        $risp->errorMessage = "Connessione fallita: ".$mysqli->connect_error;
+                        die(json_encode($risp));
+                    }
+                    http_response_code(201);
+                    die(json_encode(["message" => "Artista inserito correttamente"]));
+                } else {
+                    http_response_code(500);
+                    die(json_encode(["message" => "Errore nel salvataggio dell'immagine"]));
+                }
+            } else {
+                http_response_code(400);
+                die(json_encode(["message" => "Il file caricato non è un'immagine valida"]));
+            }
+        } else {
+            http_response_code(400);
+            die(json_encode(["message" => "Nessuna immagine caricata"]));
         }
-        http_response_code(201);
-        die(json_encode(["message" => "Artista inserito correttamente"]));
     }
 
     // PUT /artista/id
     if ((strtolower($richiesta[3]) == "artista" && isset($richiesta[4]) && is_numeric($richiesta[4])) && $method == "PUT")
     {
         $id = $richiesta[4];
-        $body = json_decode(file_get_contents("php://input"));
-        $nome = $body->nome;
-        $cognome = $body->cognome;
-        $immagine = $body->immagine;
-        $query = "UPDATE `MUSICA_artisti` SET Nome='$nome', Cognome='$cognome', Immagine='$immagine' WHERE ID=$id";
-        $mysqli->query($query);
-        if($mysqli->connect_errno)
-        {
-            http_response_code(500);
-            $risp = new stdClass();
-            $risp->errorCode = 500;
-            $risp->errorMessage = "Connessione fallita: ".$mysqli->connect_error;
-            die(json_encode($risp));
+        
+        // Recupera i dati dal form
+        parse_str(file_get_contents("php://input"), $put_vars);
+        $nome = isset($put_vars['nome']) ? $put_vars['nome'] : null;
+        $cognome = isset($put_vars['cognome']) ? $put_vars['cognome'] : null;
+        
+        // Gestione dell'upload dell'immagine
+        if (isset($_FILES['immagine']) && $_FILES['immagine']['error'] == UPLOAD_ERR_OK) {
+            $immagine = $_FILES['immagine']['name'];
+            $target_dir = "img/";
+            $target_file = $target_dir . basename($immagine);
+            
+            // Controlla se il file è un'immagine
+            $check = getimagesize($_FILES['immagine']['tmp_name']);
+            if($check !== false) {
+                // Salva l'immagine nella directory target
+                if (move_uploaded_file($_FILES['immagine']['tmp_name'], $target_file)) {
+                    // Aggiorna il database con il percorso dell'immagine
+                    $query = "UPDATE `MUSICA_artisti` SET ";
+                    if ($nome) $query .= "Nome='$nome', ";
+                    if ($cognome) $query .= "Cognome='$cognome', ";
+                    $query .= "Immagine='$immagine' WHERE ID=$id";
+                    $mysqli->query($query);
+                    if($mysqli->connect_errno)
+                    {
+                        http_response_code(500);
+                        $risp = new stdClass();
+                        $risp->errorCode = 500;
+                        $risp->errorMessage = "Connessione fallita: ".$mysqli->connect_error;
+                        die(json_encode($risp));
+                    }
+                    http_response_code(200);
+                    die(json_encode(["message" => "Artista modificato correttamente"]));
+                } else {
+                    http_response_code(500);
+                    die(json_encode(["message" => "Errore nel salvataggio dell'immagine"]));
+                }
+            } else {
+                http_response_code(400);
+                die(json_encode(["message" => "Il file caricato non è un'immagine valida"]));
+            }
+        } else {
+            // Se non viene caricata nessuna immagine, aggiorna solo nome e cognome
+            $query = "UPDATE `MUSICA_artisti` SET ";
+            if ($nome) $query .= "Nome='$nome', ";
+            if ($cognome) $query .= "Cognome='$cognome', ";
+            $query = rtrim($query, ', ');
+            $query .= " WHERE ID=$id";
+            $mysqli->query($query);
+            if($mysqli->connect_errno)
+            {
+                http_response_code(500);
+                $risp = new stdClass();
+                $risp->errorCode = 500;
+                $risp->errorMessage = "Connessione fallita: ".$mysqli->connect_error;
+                die(json_encode($risp));
+            }
+            http_response_code(200);
+            die(json_encode(["message" => "Artista modificato correttamente"]));
         }
-        http_response_code(200);
-        die(json_encode(["message" => "Artista modificato correttamente"]));
     }
 
     // DELETE /artista/id
