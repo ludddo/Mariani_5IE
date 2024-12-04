@@ -1,0 +1,5 @@
+l'indirizzo corretto da utilizzare é:
+
+http://127.0.0.1/xampp/5IE/MMC/all3/
+
+per l'API di Google settate in questo modo.
