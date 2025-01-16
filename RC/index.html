@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RC Encryption</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .radio-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .radio-group label {
+            position: relative;
+            padding-left: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            color: #333;
+        }
+        .radio-group input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .radio-group .custom-radio {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            background-color: #ddd;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            transition: all 0.3s;
+        }
+        .radio-group input[type="radio"]:checked ~ .custom-radio {
+            background-color: #007BFF;
+            border-color: #007BFF;
+        }
+        .radio-group input[type="radio"]:focus ~ .custom-radio {
+            outline: 2px solid #0056b3;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input[type="text"], textarea, input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+    <script>
+        function updateTitle() {
+            const tipo = document.querySelector('input[name="tipo"]:checked').value;
+            const title = document.getElementById('title');
+            if (tipo === 'RC4') {
+                title.textContent = 'RC4 Encryption';
+            } else {
+                title.textContent = 'RC5 Encryption';
+            }
+            updateAction();
+        }
+
+        function updateAction() {
+            const tipo = document.querySelector('input[name="tipo"]:checked').value;
+            const form = document.querySelector('form');
+            if (tipo === 'RC4') {
+                form.action = 'rc4.php';
+            } else {
+                form.action = 'rc5.php';
+            }
+        }
+
+        function toggleInputMode() {
+            const inputMode = document.querySelector('input[name="input-mode"]:checked').value;
+            const fileInput = document.getElementById('file-input');
+            const textArea = document.getElementById('textarea-input');
+
+            if (inputMode === 'file') {
+                fileInput.classList.remove('hidden');
+                textArea.classList.add('hidden');
+            } else {
+                fileInput.classList.add('hidden');
+                textArea.classList.remove('hidden');
+            }
+        }
+
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('data').value = e.target.result;
+                    document.getElementById('textarea-input').classList.remove('hidden');
+                };
+                reader.readAsText(file);
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="radio-group">
+            <label>
+                <input type="radio" value="RC4" name="tipo" onclick="updateTitle()" required>
+                <span class="custom-radio"></span> RC4
+            </label>
+            <label>
+                <input type="radio" value="RC5" name="tipo" onclick="updateTitle()" required>
+                <span class="custom-radio"></span> RC5
+            </label>
+        </div>
+        <h1 id="title">RC Encryption</h1>
+        <form action="rc4.php" method="post" enctype="multipart/form-data">
+            <label for="key">Key:</label>
+            <input type="text" id="key" name="key" required>
+            
+            <label>Input Mode:</label>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="input-mode" value="text" onclick="toggleInputMode()" checked>
+                    <span class="custom-radio"></span> Text
+                </label>
+                <label>
+                    <input type="radio" name="input-mode" value="file" onclick="toggleInputMode()">
+                    <span class="custom-radio"></span> File
+                </label>
+            </div>
+            
+            <label>Output Format:</label>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="output-mode" value="screen" checked>
+                    <span class="custom-radio"></span> Screen
+                </label>
+                <label>
+                    <input type="radio" name="output-mode" value="file">
+                    <span class="custom-radio"></span> File
+                </label>
+            </div>
+            <div id="textarea-input">
+                <label for="data">Data:</label>
+                <textarea id="data" name="data" rows="4"></textarea>
+            </div>
+
+            <div id="file-input" class="hidden">
+                <label for="file">Upload File:</label>
+                <input type="file" id="file" name="file" onchange="handleFileUpload(event)">
+            </div>
+            
+            <button type="submit">Encrypt</button>
+        </form>
+    </div>
+</body>
+</html>
